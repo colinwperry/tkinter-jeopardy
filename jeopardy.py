@@ -14,7 +14,7 @@ class JeopardyGame:
         self.WIDGET_BG = "#3BBEFF"
         self.FONT_INFO = ("Arial", 16)
 
-        self.image_sets = [
+        self.image_sets: list[dict[str, str | bool]] = [
             {
                 "question": "images/question_1.jpg",
                 "answer": "images/answer_1.jpg",
@@ -108,7 +108,7 @@ class JeopardyGame:
         row = 0
         col = 0
 
-        self.buttons = []
+        self.buttons: list[dict[str, tk.Button | bool | int]] = []
 
         for idx, _ in enumerate(self.image_sets):
             button = tk.Button(
@@ -133,7 +133,6 @@ class JeopardyGame:
                 {
                     "button": button,
                     "is_active": False,
-                    "idx": idx,
                     "complex": self.image_sets[idx]["is_complex"],
                 }
             )
@@ -151,9 +150,9 @@ class JeopardyGame:
         self.root.grid_columnconfigure(1, weight=1)
 
     def reveal_question(self, idx):
-        self.button_info = self.buttons[idx]
-        button = self.button_info["button"]
-        image_set = self.image_sets[idx]
+        self.button_info: dict[str, tk.Button | bool] = self.buttons[idx]
+        button: tk.Button = self.button_info["button"]
+        image_set: dict[str, str | bool] = self.image_sets[idx]
 
         if self.button_info["is_active"] == False:
             question_image = Image.open(image_set["question"])
