@@ -5,7 +5,7 @@
 ---
 
 ## Commit Log
-
+> Descending Order
 * **chore:** remove unnecessary comments
   * Removed 14 lines of comments not vital to code comprehension
 
@@ -19,7 +19,7 @@
   * Imported the time library
   * Added the `is_complex` parameter to each `image_sets` dict
   * Added a new frame to hold the `timer_label`
-  * Added a complex `button_info` var detailing the button type from `image_sets`
+  * Added a `complex` var to `button_info` detailing the button type from `image_sets`
   * Utilized button state handling to recognize when the timer needs to run
   * Implemented a function for timer decrementation
 
@@ -30,7 +30,7 @@
   * Implemented logic that ensures the timer doesn't restart when the button goes from the answer state back to the question state
 
 * **fix:** addressed variable misname that broke timer logic
-  * Fixed a minor bug involving the misnamed `timer_label` variable being just `"label"` inside the `timer_increment` function
+  * Fixed a minor bug involving the misnamed `timer_label` variable being just `"label"` inside the `increment_timer` function
 
 * **style:** minor auto formatting
 
