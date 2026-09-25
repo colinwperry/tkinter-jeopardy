@@ -98,7 +98,9 @@ class JeopardyGame:
         timer_frame = tk.Frame(self.root, bg=self.FRAME_BG)
         timer_frame.place(relx=0.5, rely=0.25, anchor="center")
 
-        self.timer_label = tk.Label(timer_frame, text="0:00", bg=self.WIDGET_BG, font=self.FONT_INFO)
+        self.timer_label = tk.Label(
+            timer_frame, text="0:00", bg=self.WIDGET_BG, font=self.FONT_INFO
+        )
         self.timer_label.pack(padx=10, pady=10, ipadx=10, ipady=10)
 
         board_frame = tk.Frame(self.root, bg=self.FRAME_BG)
@@ -168,7 +170,7 @@ class JeopardyGame:
             )
 
             button.image = question_image_tk
-            
+
             self.button_info["is_active"] = True
             if not self.button_info["reverted"]:
                 self.start_time = time.time()
@@ -199,7 +201,6 @@ class JeopardyGame:
             root.after(1000, self.increment_timer)
             minute, second = proper_time // 60, proper_time % 60
             self.timer_label.configure(text=f"{minute}:{second:02}")
-
 
 
 if __name__ == "__main__":
