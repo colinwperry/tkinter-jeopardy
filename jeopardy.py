@@ -194,7 +194,7 @@ class JeopardyGame:
         if self.button_info["is_active"]:
             proper_time = int(self.start_time - time.time() + self.timer_length)
             if proper_time <= 0:
-                self.label.configure(text="Times Up!")
+                self.timer_label.configure(text="Times Up!")
                 return
             root.after(1000, self.increment_timer)
             minute, second = proper_time // 60, proper_time % 60
