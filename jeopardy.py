@@ -174,7 +174,7 @@ class JeopardyGame:
             self.button_info["is_active"] = True
             if not self.button_info["reverted"]:
                 self.start_time = time.time()
-                self.increment_timer()
+                self.decrement_timer()
 
         elif self.button_info["is_active"] == True:
             answer_image = Image.open(image_set["answer"])
@@ -192,13 +192,13 @@ class JeopardyGame:
             self.button_info["is_active"] = False
             self.button_info["reverted"] = True
 
-    def increment_timer(self):
+    def decrement_timer(self):
         if self.button_info["is_active"]:
             proper_time = int(self.start_time - time.time() + self.timer_length)
             if proper_time <= 0:
                 self.timer_label.configure(text="Times Up!")
                 return
-            root.after(1000, self.increment_timer)
+            root.after(1000, self.decrement_timer)
             minute, second = proper_time // 60, proper_time % 60
             self.timer_label.configure(text=f"{minute}:{second:02}")
 
