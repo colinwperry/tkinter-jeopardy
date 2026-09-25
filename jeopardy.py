@@ -9,6 +9,9 @@ class JeopardyGame:
         self.root.geometry("1000x600")
         self.root.title("Jeopardy Game")
         self.root.configure(bg="#2a81b8")
+        self.FRAME_BG = "#1B5282"
+        self.WIDGET_BG = "#3BBEFF"
+        self.FONT_INFO = ("Arial", 16)
 
         self.image_sets = [
             {
@@ -76,7 +79,7 @@ class JeopardyGame:
         self.create_board()
 
     def create_board(self):
-        board_frame = tk.Frame(self.root, bg="#1B5282")
+        board_frame = tk.Frame(self.root, bg=self.FRAME_BG)
         board_frame.place(relx=0.5, rely=0.5, anchor="center")
 
         num_columns = 5
@@ -89,9 +92,9 @@ class JeopardyGame:
             button = tk.Button(
                 board_frame,
                 text=f"Question {idx + 1}",
-                font=("Arial", 16),
+                font=self.FONT_INFO,
                 command=lambda idx=idx: self.reveal_question(idx),
-                bg="#3BBEFF",
+                bg=self.WIDGET_BG,
                 activebackground="#4682B4",
             )
 
