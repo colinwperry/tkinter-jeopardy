@@ -10,7 +10,6 @@ class JeopardyGame:
         self.root.title("Jeopardy Game")
         self.root.configure(bg="#2a81b8")
 
-        # List of images for questions and answers
         self.image_sets = [
             {
                 "question": "images/question_1.jpg",
@@ -74,16 +73,12 @@ class JeopardyGame:
             },
         ]
 
-        # Create the Jeopardy board
         self.create_board()
 
     def create_board(self):
-        """Create a grid of buttons for the questions."""
-        # Create a frame to hold the buttons
         board_frame = tk.Frame(self.root, bg="#1B5282")
         board_frame.place(relx=0.5, rely=0.5, anchor="center")
 
-        # Use 5 columns for the grid
         num_columns = 5
         row = 0
         col = 0
@@ -119,12 +114,10 @@ class JeopardyGame:
 
             col += 1
 
-            # Move to the next row after 5 columns
             if col == num_columns:
                 col = 0
                 row += 1
 
-        # Configure the root window for centering
         self.root.grid_rowconfigure(0, weight=1)
         self.root.grid_rowconfigure(1, weight=1)
 
@@ -132,13 +125,11 @@ class JeopardyGame:
         self.root.grid_columnconfigure(1, weight=1)
 
     def reveal_question(self, idx):
-        """Reveal the question or answer image based on the button state."""
         button_info = self.buttons[idx]
         button = button_info["button"]
         image_set = self.image_sets[idx]
 
         if button_info["state"] == 0:
-            # Show the question image
             question_image = Image.open(image_set["question"])
             question_image = question_image.resize((250, 200))
 
@@ -149,13 +140,11 @@ class JeopardyGame:
                 text="",
             )
 
-            # Keep a reference to prevent garbage collection
             button.image = question_image_tk
 
             button_info["state"] = 1
 
         elif button_info["state"] == 1:
-            # Show the answer image
             answer_image = Image.open(image_set["answer"])
             answer_image = answer_image.resize((250, 200))
 
@@ -166,14 +155,11 @@ class JeopardyGame:
                 text="",
             )
 
-            # Keep a reference to prevent garbage collection
             button.image = answer_image_tk
 
-            # Reset the button for the next round
             button_info["state"] = 0
 
 
-# Run the game
 if __name__ == "__main__":
     root = tk.Tk()
     game = JeopardyGame(root)
