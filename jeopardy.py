@@ -110,7 +110,7 @@ class JeopardyGame:
             self.buttons.append(
                 {
                     "button": button,
-                    "state": 0,  # 0 = Question, 1 = Answer
+                    "is_active": False,
                     "idx": idx,
                 }
             )
@@ -132,7 +132,7 @@ class JeopardyGame:
         button = button_info["button"]
         image_set = self.image_sets[idx]
 
-        if button_info["state"] == 0:
+        if button_info["is_active"] == False:
             question_image = Image.open(image_set["question"])
             question_image = question_image.resize((250, 200))
 
@@ -145,9 +145,9 @@ class JeopardyGame:
 
             button.image = question_image_tk
 
-            button_info["state"] = 1
+            button_info["is_active"] = True
 
-        elif button_info["state"] == 1:
+        elif button_info["is_active"] == True:
             answer_image = Image.open(image_set["answer"])
             answer_image = answer_image.resize((250, 200))
 
@@ -160,7 +160,7 @@ class JeopardyGame:
 
             button.image = answer_image_tk
 
-            button_info["state"] = 0
+            button_info["is_active"] = False
 
 
 if __name__ == "__main__":
