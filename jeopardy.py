@@ -134,6 +134,7 @@ class JeopardyGame:
                     "button": button,
                     "is_active": False,
                     "complex": self.image_sets[idx]["is_complex"],
+                    "reverted": False,
                 }
             )
 
@@ -169,8 +170,9 @@ class JeopardyGame:
             button.image = question_image_tk
             
             self.button_info["is_active"] = True
-            self.start_time = time.time()
-            self.increment_timer()
+            if not self.button_info["reverted"]:
+                self.start_time = time.time()
+                self.increment_timer()
 
         elif self.button_info["is_active"] == True:
             answer_image = Image.open(image_set["answer"])
@@ -186,6 +188,7 @@ class JeopardyGame:
             button.image = answer_image_tk
 
             self.button_info["is_active"] = False
+            self.button_info["reverted"] = True
 
     def increment_timer(self):
         if self.button_info["is_active"]:
