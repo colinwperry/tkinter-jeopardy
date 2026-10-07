@@ -97,16 +97,20 @@ class JeopardyGame:
         self.create_board()
 
     def create_board(self):
-        timer_frame = tk.Frame(self.root, bg=self.FRAME_BG)
-        timer_frame.place(relx=0.5, rely=0.25, anchor="center")
+
+        main_container = tk.Frame(self.root, bg=self.FRAME_BG)
+        main_container.grid(column=0, row=0)
+
+        timer_frame = tk.Frame(main_container, bg=self.FRAME_BG)
+        timer_frame.grid(column=0, row=0)
 
         self.timer_label = tk.Label(
             timer_frame, text="0:00", bg=self.WIDGET_BG, font=self.FONT_INFO
         )
         self.timer_label.pack(padx=10, pady=10, ipadx=10, ipady=10)
 
-        board_frame = tk.Frame(self.root, bg=self.FRAME_BG)
-        board_frame.place(relx=0.5, rely=0.5, anchor="center")
+        board_frame = tk.Frame(main_container, bg=self.FRAME_BG)
+        board_frame.grid(column=0, row=1)
 
         num_columns = 5
         row = 0
@@ -149,10 +153,10 @@ class JeopardyGame:
                 row += 1
 
         self.root.grid_rowconfigure(0, weight=1)
-        self.root.grid_rowconfigure(1, weight=1)
+        # self.root.grid_rowconfigure(1, weight=1)
 
         self.root.grid_columnconfigure(0, weight=1)
-        self.root.grid_columnconfigure(1, weight=1)
+        # self.root.grid_columnconfigure(1, weight=1)
 
     def reveal_question(self, idx):
         self.button_info: dict[str, tk.Button | bool] = self.buttons[idx]
