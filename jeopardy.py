@@ -153,10 +153,10 @@ class JeopardyGame:
                 row += 1
 
         self.root.grid_rowconfigure(0, weight=1)
-        # self.root.grid_rowconfigure(1, weight=1)
-
         self.root.grid_columnconfigure(0, weight=1)
-        # self.root.grid_columnconfigure(1, weight=1)
+
+        self.magnifier = None
+
 
     def reveal_question(self, idx):
         self.button_info: dict[str, tk.Button | bool] = self.buttons[idx]
@@ -172,12 +172,11 @@ class JeopardyGame:
 
             self.timer_length = 60 if self.button_info["complex"] == False else 120
 
-            button.bind("<3>", lambda _: self.enlarge_image(image_set["question"]))
+            button.bind("<Shift-3>", lambda _: self.enlarge_image(image_set["question"]))
 
             button.config(
                 image=question_image_tk,
                 text="",
-                command=lambda: self.reveal_question(idx),
             )
 
             button.image = question_image_tk
@@ -192,12 +191,11 @@ class JeopardyGame:
             answer_image = answer_image.resize((self.IMAGE_WIDTH, self.IMAGE_HEIGHT))
             answer_image_tk = ImageTk.PhotoImage(answer_image)
 
-            button.bind("<3>", lambda _: self.reveal_question(idx))
+            button.bind("<Shift-3>", lambda _: self.enlarge_image(image_set["answer"]))
 
             button.config(
                 image=answer_image_tk,
                 text="",
-                command=lambda: self.enlarge_image(image_set["answer"]),
             )
 
             button.image = answer_image_tk
@@ -218,14 +216,16 @@ class JeopardyGame:
             self.timer_label.configure(text=f"{minute}:{second:02}")
 
     def enlarge_image(self, img_addr):
-        if hasattr(self, "magnifier") and self.magnifier:
+        if self.magnifier != None:
             self.magnifier.destroy()
             self.magnify_frame.destroy()
             self.magnifier = None
+            root.unbind('<KeyPress>')
+            root.unbind('<Button>')
             return
 
         img = Image.open(img_addr)
-        rel_resize = (self.IMAGE_WIDTH * 2, self.IMAGE_HEIGHT * 2)
+        rel_resize = (self.IMAGE_WIDTH * 3, self.IMAGE_HEIGHT * 3)
         resized_img = img.resize(rel_resize)
         resized_img_tk = ImageTk.PhotoImage(resized_img)
 
@@ -235,6 +235,8 @@ class JeopardyGame:
         self.magnifier = tk.Label(self.magnify_frame, image=resized_img_tk)
         self.magnifier.pack()
         self.magnifier.image = resized_img_tk
+        root.bind('<KeyPress>', self.enlarge_image)
+        root.bind('<Button>', self.enlarge_image)
 
 
 if __name__ == "__main__":
